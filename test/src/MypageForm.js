@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import axios from "axios";
-import CKeditor from "ckeditor4-react" 
+import axios from "axios"; 
 import $ from "jquery";
 import {} from "jquery.cookie";
 axios.defaults.withCredentials = true;
