@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import {Button} from 'react-bootstrap';
 import moment from "moment";
@@ -7,13 +7,11 @@ import "./App.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from 'axios';
-import Dialog from './Dialog';
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 class CalendarApp extends Component {
-
   state = {
     events: [
       {
@@ -51,12 +49,7 @@ class CalendarApp extends Component {
   onEventDrop = (data) => {
     console.log(data);
   };
-
-  constructor(props){
-    super(props);
-    this.state={state: false};
-  }
-
+  
   render() {
     const marginBottom = {
       marginBottom: 5
@@ -80,13 +73,9 @@ class CalendarApp extends Component {
           resizable
           style={{ height: "100vh", paddingTop:"50px" , paddingLeft:"50px", paddingRight:"50px"}}
         />
-        {/* <Button block style={marginBottom,buttonStyle} onClick={()=>{
-          this.setState({state: true})
-        }}>
+        <Button block style={marginBottom,buttonStyle}>
           일정 추가
         </Button>
-
-        <Dialog show={this.state}/> */}
 
       </div>
     );
