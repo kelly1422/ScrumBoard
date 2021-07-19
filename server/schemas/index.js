@@ -29,8 +29,6 @@ module.exports = () => { //exports로 내보내주므로 다른 곳에서도 쓸
   });
   require("./user"); //같은 폴더 내의 user, board도 불러옴.
   require("./board");
+  require("./calendar");
 };
 
-
-//이렇게 작성한 스키마는 라우터에서 사용
-//몽구스를 사용하는 이유 : 강제 스키마 사용, join기능 사용가능, 콜백, 프로미스 사용가능, 편리한 쿼리 빌더

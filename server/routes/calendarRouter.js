@@ -38,7 +38,6 @@ router.post("/write", async (req, res) => {
     let obj;
 
     obj = {
-      writer: req.body._id,
       title: req.body.title,
       content: req.body.content
     };
