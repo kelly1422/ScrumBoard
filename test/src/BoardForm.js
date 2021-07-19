@@ -25,6 +25,13 @@ class BoardRow extends Component {
             {this.props.title}
           </NavLink>
         </td>
+        <td>
+        <NavLink
+            to={{ pathname: "/board/userDetail", query: { _id: this.props._id } }}
+          >
+            {this.props.title}
+          </NavLink>
+        </td>
       </tr>
     );
   }
@@ -40,14 +47,11 @@ class BoardForm extends Component {
   }
 
   getBoardList = () => {
-    const send_param = {
-      headers,
-      _id: $.cookie("login_id")
-    };
     axios
-      .post("http://172.10.18.151:80/board/getBoardList", send_param)
+      .post("http://172.10.18.151:80/board/getBoardList")
       .then(returnData => {
         let boardList;
+        console.log(returnData.data);
         if (returnData.data.list.length > 0) {
           // console.log(returnData.data.list.length);
           const boards = returnData.data.list;
@@ -57,6 +61,7 @@ class BoardForm extends Component {
               _id={item._id}
               createdAt={item.createdAt}
               title={item.title}
+              author={item.author}
             ></BoardRow>
           ));
           // console.log(boardList);
@@ -66,7 +71,7 @@ class BoardForm extends Component {
         } else {
           boardList = (
             <tr>
-              <td colSpan="2">작성한 게시글이 존재하지 않습니다.</td>
+              <td colSpan="3">작성한 게시글이 존재하지 않습니다.</td>
             </tr>
           );
           this.setState({
@@ -82,7 +87,7 @@ class BoardForm extends Component {
 
   render() {
     const divStyle = {
-      margin: 50
+      margin: 100
     };
 
     return (
@@ -91,8 +96,9 @@ class BoardForm extends Component {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>날짜</th>
-                <th>글 제목</th>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Author</th>
               </tr>
             </thead>
             <tbody>{this.state.boardList}</tbody>

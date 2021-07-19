@@ -10,6 +10,10 @@ const boardSchema = new Schema({
     required: true, //필수적으로 들어와야 하는 값인지 확인
     ref: "User" //writer라는 필드 이름을 User에서 참조해서 사용
   },
+  author:{
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true

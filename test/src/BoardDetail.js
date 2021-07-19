@@ -10,8 +10,8 @@ class BoardDetail extends Component {
     board: []
   };
 
-  componentDidMount() {
-    if (this.props.location.query !== undefined) {
+  componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
+    if (this.props.location.query !== undefined) { //쿼리로 보낸게 없으면 (NavLink 로 이 페이지 주소로 연결할때 주는)
       this.getDetail();
     } else {
       window.location.href = "/";
@@ -81,7 +81,7 @@ class BoardDetail extends Component {
                     }
                   }}
                 >
-                  <Button block style={marginBottom}>
+                  <Button block className="my-3">
                     글 수정
                   </Button>
                 </NavLink>
