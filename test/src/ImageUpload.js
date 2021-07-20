@@ -31,7 +31,7 @@ componentWillMount() {
 
   /* popout the browser and maximize to see more rows! -> */
   
-  axios.get("http://172.10.18.151:80/image/").then(res => {
+  axios.get("http://192.249.18.153:80/image/").then(res => {
       console.log(res);
       let url = res.config.url.replace("/image","")
       for(var i in res.data.image) {
@@ -59,7 +59,7 @@ componentWillMount() {
 	    header: {'content-type': 'multipart/form-data'}
     }
     formData.append("file", this.state.selectedFile);
-    return axios.post("http://172.10.18.151:80/image/upload", formData,config).then(res => {
+    return axios.post("http://192.249.18.153/image/upload", formData,config).then(res => {
     console.log(res)
       alert(res.data.success ? '성공':'오류')
       window.location.reload();
