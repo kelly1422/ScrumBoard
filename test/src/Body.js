@@ -5,7 +5,9 @@ import BoardWriteForm from "./BoardWriteForm";
 import BoardDetail from "./BoardDetail";
 import UserDetail from "./UserDetail";
 import MypageForm from "./MypageForm";
+import ImageUpload from "./ImageUpload";
 import { Route } from "react-router-dom";
+import axios from 'axios';
 import $ from "jquery";
 import {} from "jquery.cookie";
 
@@ -22,13 +24,30 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
         return resultForm;
       }
     }
+
+    function getphotolist() {
+    let photos = [];
+      axios.get("http://192.249.18.153:80/image/").then(res => {
+        console.log(res);
+        let url = res.config.url.replace("/image","")
+        for(var i in res.data.image) {
+            photos.push({src:url+res.data.image[i],
+            width: 400,
+            height: 300
+            });
+        }
+      })
+      return photos;
+    }
     getResultForm();
+    getphotolist();
     return (
       <div>
         <Route path="/mypage" component={MypageForm}></Route>
         <Route path="/boardWrite" component={BoardWriteForm}></Route>
         <Route path="/board/detail" component={BoardDetail}></Route>
         <Route path="/board/userDetail" component={UserDetail}></Route>
+        <Route path="/imageupload" component={ImageUpload}></Route>
         {resultForm}
       </div>
     );
