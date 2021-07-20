@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
-import { CKEditor } from "ckeditor4-react";
+import {CKEditor} from 'ckeditor4-react';
+import { Button, Form, FormText} from "react-bootstrap";
 import axios from "axios";
 import $ from "jquery";
 import {} from "jquery.cookie";
@@ -39,11 +39,11 @@ class BoardWriteForm extends Component {
       return;
     } else if (boardContent === undefined || boardContent === "") {
       alert("글 내용을 입력 해주세요.");
-      return;
+      this.boardContent.focus();
     }
     
-    if (this.props.location.query !== undefined) { //수정하기 버튼을 통해 들어오면 query를 통해 그 글의  _id 값을 보내줌, 그 값이 있으면 
-      url = "http://192.249.18.151:80/board/update";
+    if (this.props.location.query !== undefined) {
+      url = "http://172.10.18.147:80/board/update";
       send_param = {
         headers,
         "_id" : this.props.location.query._id,
@@ -51,13 +51,12 @@ class BoardWriteForm extends Component {
         "content": boardContent
       };
     } else {
-      url = "http://192.249.18.151:80/board/write"; //새로 작성
+      url = "http://172.10.18.147:80/board/write";
       send_param = {
         headers,
-        "_id" : $.cookie("login_id"),  //로그인에 성공해서 생성한 login_id 쿠키값으로 방금 새로 작성한 글의 _id 값을 정해줌
+        "_id" : $.cookie("login_id"),
         "title": boardTitle,
-        "content": boardContent,
-        "author" : $.cookie("login_name")
+        "content": boardContent
       };
 
     }
@@ -81,7 +80,7 @@ class BoardWriteForm extends Component {
 
   onEditorChange = evt => {
     this.setState({
-      data: evt.editor.getData()
+      data:evt.editor.getData()
     });
   };
 
@@ -90,11 +89,10 @@ class BoardWriteForm extends Component {
       margin: 50
     };
     const titleStyle = {
-      marginBottom: 30,
-      marginTop: 30
+      marginBottom: 5
     };
     const buttonStyle = {
-      marginTop: 50
+      marginTop: 5
     };
 
     return (
@@ -110,7 +108,7 @@ class BoardWriteForm extends Component {
           data={this.state.data}
           onChange={this.onEditorChange}
         ></CKEditor>
-        <Button block style={buttonStyle} type="button" onClick={this.writeBoard} >
+        <Button style={buttonStyle} onClick={this.writeBoard} block>
           저장하기
         </Button>
       </div>

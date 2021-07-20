@@ -3,8 +3,6 @@ const router = express.Router();
 const Board = require("../schemas/board");
 const User = require("../schemas/user");
 
-
-
 router.post("/delete", async (req, res) => {
   try {
     await Board.remove({
@@ -36,14 +34,14 @@ router.post("/update", async (req, res) => {
 });
 
 router.post("/write", async (req, res) => {
+  console.log('write board');
   try {
     let obj;
 
     obj = {
       writer: req.body._id,
       title: req.body.title,
-      content: req.body.content,
-      author: req.body.author
+      content: req.body.content
     };
 
     const board = new Board(obj);
@@ -55,39 +53,36 @@ router.post("/write", async (req, res) => {
   }
 });
 
-router.post("/getBoardListUser", async (req, res) => { //그 유저가 쓴 글만 보내기
+router.post("/getBoardList", async (req, res) => {
   try {
-    const author = await User.findOne({ 'name': req.body.author});
-    const _id = author._id;
-    console.log(_id);
-
-
-    const board = await Board.find({ 'writer': _id }, null, {
+    const _id = req.body._id;
+    const board = await Board.find({ writer: _id }, null, {
       sort: { createdAt: -1 }
     });
-    console.log("author :");
-    console.log(author);
-  
-    console.log("board:");
-    console.log(board);
-    res.json({ 
-      list: board
-    });
+    res.json({ list: board });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
 
-router.post("/getBoardList", async (req, res) => {
+router.post("/getBoardListUser", async (req, res) => { //그 유저가 쓴 글만 보내기
   try {
-    const board = await Board.find(null, null, {
+    const _id = req.body._id;
+    const board = await Board.find({ writer: _id }, null, {
       sort: { createdAt: -1 }
     });
     console.log(board);
-    res.json({ list: board });
+    const author = await User.find({ _id: _id }, null, {
+      sort: { createdAt: -1 }
+    });
+    console.log(author);
+    res.json({ 
+      list: board,
+      author: author
+    });
   } catch (err) {
-    console.log("error " + err);
+    console.log(err);
     res.json({ message: false });
   }
 });
@@ -103,17 +98,7 @@ router.post("/detail", async (req, res) => {
   }
 });
 
-router.post("/userdetail", async(req, res) => {
-  try{
-    const _id = req.body._id;
-    const board = await Board.find({ writer: _id }, null, {
-      sort: { createdAt: -1 }
-    });
-    res.json({ list: board });
-  } catch (err) {
-    console.log(err);
-    res.json({ message: false });
-  }
-});
+
+
 
 module.exports = router;

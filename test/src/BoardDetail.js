@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import Comment from "./Comment";
 axios.defaults.withCredentials = true;
 const headers = { withCredentials: true };
 
@@ -10,8 +11,8 @@ class BoardDetail extends Component {
     board: []
   };
 
-  componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
-    if (this.props.location.query !== undefined) { //쿼리로 보낸게 없으면 (NavLink 로 이 페이지 주소로 연결할때 주는)
+  componentDidMount() {
+    if (this.props.location.query !== undefined) {
       this.getDetail();
     } else {
       window.location.href = "/";
@@ -25,7 +26,7 @@ class BoardDetail extends Component {
     };
     if (window.confirm("정말 삭제하시겠습니까?")) {
       axios
-        .post("http://192.249.18.151:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
+        .post("http://172.10.18.147:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
         //정상 수행
         .then(returnData => {
           alert("게시글이 삭제 되었습니다.");
@@ -39,6 +40,43 @@ class BoardDetail extends Component {
     }
   };
 
+  getComment =() =>{
+    
+    const tableId = this.props.tableId;
+    const send_param ={
+      headers,
+      _id: this.props.location.query._id,
+      tableId: tableId
+    }
+    axios.post("http://172.10.18.147:80/comment/getCommentList", send_param)
+    .then(returnData=>{
+      if(returnData.data.success){
+        const comment=(
+          <div>
+            <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>{returnData.data.comment[0].title}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      dangerouslySetInnerHTML={{ 
+                        __html: returnData.data.comment[0].content
+                      }}
+                    ></td>
+                  </tr>
+                </tbody>
+              </Table> 
+          </div>
+        )
+      }else{
+        alert('코멘트 정보를 가져오는 것을 실패하였습니다.')
+      }
+    })
+  }
+
   getDetail = () => {
     const send_param = {
       headers,
@@ -47,8 +85,14 @@ class BoardDetail extends Component {
     const marginBottom = {
       marginBottom: 5
     };
+    const buttonStyle = {
+      margin: "0px 5px 0px 10px",
+      display: this.state.buttonDisplay
+    };
+    
+
     axios
-      .post("http://192.249.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
+      .post("http://172.10.18.147:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
       //정상 수행
       .then(returnData => { //받아온 보드 데이터들 
         if (returnData.data.board[0]) { //받아온 보드 데이터는 한개이므로 걍 0번째 인덱스로 하면됨
@@ -63,13 +107,16 @@ class BoardDetail extends Component {
                 <tbody>
                   <tr>
                     <td
-                      dangerouslySetInnerHTML={{ //
+                      dangerouslySetInnerHTML={{ 
                         __html: returnData.data.board[0].content
                       }}
                     ></td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> 
+
+              <Comment/>
+              
               <div>
                 <NavLink
                   to={{
@@ -81,19 +128,19 @@ class BoardDetail extends Component {
                     }
                   }}
                 >
-                  <Button block className="my-3">
+                  <Button block style={marginBottom,buttonStyle, {marginTop:'10px', marginRight:'10px'}}>
                     글 수정
                   </Button>
                 </NavLink>
-                <Button
-                  block
+                  <Button
+                  block style={marginBottom,buttonStyle,{marginTop:'10px'}}
                   onClick={this.deleteBoard.bind(
                     null,
                     this.props.location.query._id
                   )}
-                >
-                  글 삭제
-                </Button>
+                  >
+                    글 삭제
+                  </Button>
               </div>
             </div>
           );
@@ -115,6 +162,7 @@ class BoardDetail extends Component {
     const divStyle = {
       margin: 50
     };
+
     return <div style={divStyle}>{this.state.board}</div>; //this.state.board 에 테이블이 들어감
   }
 }

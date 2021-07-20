@@ -60,7 +60,7 @@ class LoginForm extends Component {
       password: this.joinPw.value
     };
     axios
-      .post("http://192.249.18.151:80/member/join", send_param)
+      .post("http://172.10.18.147:80/member/join", send_param)
       //정상 수행
       .then(returnData => { //돌아온 데이터 체크
         if (returnData.data.message) {
@@ -103,13 +103,12 @@ class LoginForm extends Component {
       password: this.loginPw.value //키값 : 벨류값
     };
     axios //비동기 통신
-      .post("http://192.249.18.151:80/member/login", send_param) //서버에 저 url 주소 보내주기
+      .post("http://172.10.18.147:80/member/login", send_param) //서버에 저 url 주소 보내주기
       //정상 수행
       .then(returnData => {
         if (returnData.data.message) {
           // console.log("login_id:" + returnData.data._id);
           $.cookie("login_id", returnData.data._id, { expires: 1 });
-          $.cookie("login_name", returnData.data.name, { expires: 1 });
           $.cookie("login_email", returnData.data.email, { expires: 1 }); //로그인 되면 쿠키값을 설정해줌 -> 쿠키값 여부로 로그인 여부 확인
           alert(returnData.data.message);
           window.location.reload(); //로그인 된 상태의 화면으로 새로고침
@@ -140,15 +139,12 @@ class LoginForm extends Component {
             ref={ref => (this.joinEmail = ref)}
             placeholder="Enter email"
           />
-          <Form.Text className="text-muted">
-            <p>We'll never share your email with anyone else.</p>
-          </Form.Text>
-          <Form.Label>name</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
             maxLength="20"
             ref={ref => (this.joinName = ref)}
-            placeholder="name"
+            placeholder="Name"
           />
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -169,7 +165,7 @@ class LoginForm extends Component {
         </Form.Group>
 
         <Form.Group controlId="loginForm">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label style={{paddingTop:'30px'}}>Email address</Form.Label>
           <Form.Control
             type="email"
             maxLength="100"

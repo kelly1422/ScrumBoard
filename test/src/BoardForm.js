@@ -10,7 +10,7 @@ const headers = { withCredentials: true };
 class BoardRow extends Component {
   render() {
     return (
-      <tr font-color="black">
+      <tr>
         <td>
           <NavLink
             to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
@@ -47,11 +47,14 @@ class BoardForm extends Component {
   }
 
   getBoardList = () => {
+    const send_param = {
+      headers,
+      _id: $.cookie("login_id")
+    };
     axios
-      .post("http://192.249.18.151:80/board/getBoardList")
+      .post("http://172.10.18.147:80/board/getBoardList", send_param)
       .then(returnData => {
         let boardList;
-        console.log(returnData.data);
         if (returnData.data.list.length > 0) {
           // console.log(returnData.data.list.length);
           const boards = returnData.data.list;
@@ -61,7 +64,6 @@ class BoardForm extends Component {
               _id={item._id}
               createdAt={item.createdAt}
               title={item.title}
-              author={item.author}
             ></BoardRow>
           ));
           // console.log(boardList);
@@ -71,7 +73,7 @@ class BoardForm extends Component {
         } else {
           boardList = (
             <tr>
-              <td colSpan="3">작성한 게시글이 존재하지 않습니다.</td>
+              <td colSpan="2">작성한 게시글이 존재하지 않습니다.</td>
             </tr>
           );
           this.setState({
@@ -87,23 +89,17 @@ class BoardForm extends Component {
 
   render() {
     const divStyle = {
-      marginTop:65,
-      marginLeft:180,
-      marginRight:200,
-      marginBottom:160
+      margin: 50
     };
 
     return (
       <div>
-        <h1><strong>SCRUM BOARD</strong></h1>
-        <p>현재까지의 진행상황을 작성해 주세요</p>
         <div style={divStyle}>
-          <Table warning striped bordered hover>
+          <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Title</th>
-                <th>Author</th>
+                <th>날짜</th>
+                <th>글 제목</th>
               </tr>
             </thead>
             <tbody>{this.state.boardList}</tbody>
