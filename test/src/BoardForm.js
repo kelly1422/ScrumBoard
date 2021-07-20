@@ -10,7 +10,7 @@ const headers = { withCredentials: true };
 class BoardRow extends Component {
   render() {
     return (
-      <tr>
+      <tr font-color="black">
         <td>
           <NavLink
             to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
@@ -27,9 +27,9 @@ class BoardRow extends Component {
         </td>
         <td>
         <NavLink
-            to={{ pathname: "/board/userDetail", query: { _id: this.props._id } }}
+            to={{ pathname: "/board/userDetail", query: { author: this.props.author } }}
           >
-            {this.props.title}
+            {this.props.author}
           </NavLink>
         </td>
       </tr>
@@ -48,7 +48,7 @@ class BoardForm extends Component {
 
   getBoardList = () => {
     axios
-      .post("http://172.10.18.151:80/board/getBoardList")
+      .post("http://192.249.18.151:80/board/getBoardList")
       .then(returnData => {
         let boardList;
         console.log(returnData.data);
@@ -87,13 +87,18 @@ class BoardForm extends Component {
 
   render() {
     const divStyle = {
-      margin: 100
+      marginTop:65,
+      marginLeft:180,
+      marginRight:200,
+      marginBottom:160
     };
 
     return (
       <div>
+        <h1><strong>SCRUM BOARD</strong></h1>
+        <p>현재까지의 진행상황을 작성해 주세요</p>
         <div style={divStyle}>
-          <Table striped bordered hover>
+          <Table warning striped bordered hover>
             <thead>
               <tr>
                 <th>Date</th>

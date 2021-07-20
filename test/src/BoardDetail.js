@@ -25,7 +25,7 @@ class BoardDetail extends Component {
     };
     if (window.confirm("정말 삭제하시겠습니까?")) {
       axios
-        .post("http://172.10.18.151:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
+        .post("http://192.249.18.151:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
         //정상 수행
         .then(returnData => {
           alert("게시글이 삭제 되었습니다.");
@@ -48,7 +48,7 @@ class BoardDetail extends Component {
       marginBottom: 5
     };
     axios
-      .post("http://172.10.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
+      .post("http://192.249.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
       //정상 수행
       .then(returnData => { //받아온 보드 데이터들 
         if (returnData.data.board[0]) { //받아온 보드 데이터는 한개이므로 걍 0번째 인덱스로 하면됨

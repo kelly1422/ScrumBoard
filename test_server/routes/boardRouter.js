@@ -57,26 +57,34 @@ router.post("/write", async (req, res) => {
 
 router.post("/getBoardListUser", async (req, res) => { //그 유저가 쓴 글만 보내기
   try {
-    const _id = req.body._id;
-    const board = await Board.find({ writer: _id }, null, {
+    const author = await User.findOne({ 'name': req.body.author});
+    const _id = author._id;
+    console.log(_id);
+
+
+    const board = await Board.find({ 'writer': _id }, null, {
       sort: { createdAt: -1 }
     });
-    const author = await User.find({ _id: _id });
+    console.log("author :");
     console.log(author);
+  
+    console.log("board:");
+    console.log(board);
     res.json({ 
-      list: board,
-      author: author.name 
+      list: board
     });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
+
 router.post("/getBoardList", async (req, res) => {
   try {
     const board = await Board.find(null, null, {
       sort: { createdAt: -1 }
     });
+    console.log(board);
     res.json({ list: board });
   } catch (err) {
     console.log("error " + err);

@@ -26,7 +26,7 @@ class Header extends Component {
 
   logout = () => {
     axios
-      .get("http://172.10.18.151:80/member/logout", {
+      .get("http://192.249.18.151:80/member/logout", {
         headers
       })
       .then(returnData => {
@@ -39,14 +39,14 @@ class Header extends Component {
   };
   render() {
     const buttonStyle = {
-      margin: "0px 5px 0px 10px",
+      margin: "10px 10px 10px 10px",
     };
 
     return (
       <div>
         <Navbar Navbar bg="light" expand="lg">
           <Container>
-          <Navbar.Brand href="/">SCRUM for Mad Camp</Navbar.Brand>
+          <Navbar.Brand href="/"><strong><big>SCRUM for Mad Camp</big></strong></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
@@ -69,7 +69,7 @@ class Header extends Component {
               logout
             </Button>
             </Nav>
-          </Navbar.Collapse>
+          </Navbar.Collapse>x
           </Container>
         </Navbar>
         <Image src="./img/check.jpg" fluid />
