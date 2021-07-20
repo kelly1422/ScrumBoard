@@ -7,6 +7,7 @@ const headers = { withCredentials: true };
 
 class BoardDetail extends Component {
   state = {
+    subject:"",
     board: []
   };
 
@@ -87,6 +88,7 @@ class BoardDetail extends Component {
                 </NavLink>
                 <Button
                   block
+                  className="my-3"
                   onClick={this.deleteBoard.bind(
                     null,
                     this.props.location.query._id
@@ -98,6 +100,7 @@ class BoardDetail extends Component {
             </div>
           );
           this.setState({
+            subject: returnData.data.board[0].title,
             board: board //맨위에서 선언한 board : 방금 받아온 board 데이터
           });
         } else {
@@ -113,9 +116,17 @@ class BoardDetail extends Component {
   //onClick={this.getBoard.bind(null,this.props._id)}
   render() {
     const divStyle = {
-      margin: 50
+      marginTop: 30,
+      marginLeft:200,
+      marginRight:200,
+      marginBottom:50
     };
-    return <div style={divStyle}>{this.state.board}</div>; //this.state.board 에 테이블이 들어감
+    return (
+      <div>
+      <h2><strong>Subject : {this.state.subject}</strong></h2>
+      <div style={divStyle}>{this.state.board}</div>
+      </div>
+    ); //this.state.board 에 테이블이 들어감
   }
 }
 

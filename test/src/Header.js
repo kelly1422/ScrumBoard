@@ -39,7 +39,7 @@ class Header extends Component {
   };
   render() {
     const buttonStyle = {
-      margin: "10px 10px 10px 10px",
+      margin: "15px 10px 15px 10px",
     };
 
     return (
@@ -65,11 +65,12 @@ class Header extends Component {
                 write
               </Button>
             </NavLink>
-            <Button onClick={this.logout} variant="secondary" style={buttonStyle}>
+            <div><Button onClick={this.logout} variant="secondary" style={buttonStyle}>
               logout
-            </Button>
+            </Button></div>
+            
             </Nav>
-          </Navbar.Collapse>x
+          </Navbar.Collapse>
           </Container>
         </Navbar>
         <Image src="./img/check.jpg" fluid />

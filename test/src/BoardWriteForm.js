@@ -34,11 +34,11 @@ class BoardWriteForm extends Component {
     const boardContent = this.state.data;
 
     if (boardTitle === undefined || boardTitle === "") {
-      alert("글 제목을 입력 해주세요.");
+      alert("Enter your project title.");
       this.boardTitle.focus();
       return;
     } else if (boardContent === undefined || boardContent === "") {
-      alert("글 내용을 입력 해주세요.");
+      alert("Explain your project.");
       return;
     }
     
@@ -87,23 +87,25 @@ class BoardWriteForm extends Component {
 
   render() {
     const divStyle = {
-      margin: 50
+      paddingLeft: 150,
+      paddingRight: 150
     };
     const titleStyle = {
       marginBottom: 30,
-      marginTop: 30
+      marginTop: 20
     };
     const buttonStyle = {
-      marginTop: 50
+      marginTop: 50,
+      marginBottom: 80
     };
 
     return (
       <div style={divStyle} className="App">
-        <h2>글쓰기</h2>
+        <h2><strong>WriteBoard</strong></h2>
         <Form.Control
-          type="text"
           style={titleStyle}
-          placeholder="글 제목"
+          type="text"
+          placeholder="Enter your Scrum Title"
           ref={ref => (this.boardTitle = ref)}
         />
         <CKEditor

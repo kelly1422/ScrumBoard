@@ -124,14 +124,34 @@ class LoginForm extends Component {
   };
   render() {
     const formStyle = {
-      margin: 50
+      marginTop: 20
     };
     const buttonStyle = {
-      marginTop: 10
+      marginTop: 50,
+      marginBottom: 30
+    };
+    const divStyle1 ={
+      float: "left",
+      marginTop : 25,
+      width : 330,
+      marginLeft : 300,
+      marginRight : 120,
+      marginBottom : 40
+      
+    };
+    const divStyle2 ={
+      float: "left",
+      width : 330,
+      marginTop : 70,
+      marginLeft : 120,
+      marginRight : 250,
+      marginBottom : 40
+      
     };
 
     return (
       <Form style={formStyle}>
+        <div style={divStyle1}>
         <Form.Group controlId="joinForm">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -167,7 +187,9 @@ class LoginForm extends Component {
             회원가입
           </Button>
         </Form.Group>
+        </div>
 
+        <div style={divStyle2}>
         <Form.Group controlId="loginForm">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -198,6 +220,7 @@ class LoginForm extends Component {
             로그인
           </Button>
         </Form.Group>
+        </div>
       </Form>
     );
   }

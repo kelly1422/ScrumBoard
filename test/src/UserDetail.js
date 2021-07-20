@@ -92,16 +92,13 @@ class UserDetail extends Component {
 
   render() {
     const divStyle = {
-      margin: 100
+      marginTop: 50,
+      marginRight: 200,
+      marginLeft:200 
     };
-    const titleStyle = {
-      
-    };
-
-    
     return (
       <div>
-        <h2><strong>{this.state.author} 's Board</strong></h2>
+        <h2><strong>{this.state.author} 's Project</strong></h2>
         <div style={divStyle}>
           <Table striped bordered hover>
             <thead>
