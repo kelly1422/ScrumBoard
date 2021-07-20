@@ -50,9 +50,9 @@ class Header extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <NavLink to="/mypage">
+            <NavLink to={{pathname: "/mypage", query: { _id: $.cookie("login_id")}}}>
               <Button variant="primary" style={buttonStyle}>
-                edit
+                Mypage
               </Button>
             </NavLink>
             <NavLink to="/">

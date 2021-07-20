@@ -54,6 +54,19 @@ router.post("/write", async (req, res) => {
     res.json({ message: false });
   }
 });
+router.post("/getBoardMyPage", async (req, res) => { //그 유저가 쓴 글만 보내기
+  try {
+    const board = await Board.find({ 'writer': req.body.author }, null, {
+      sort: { createdAt: -1 }
+    });
+    res.json({ 
+      list: board
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
 
 router.post("/getBoardListUser", async (req, res) => { //그 유저가 쓴 글만 보내기
   try {
