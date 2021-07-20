@@ -65,6 +65,11 @@ class Header extends Component {
                 write
               </Button>
             </NavLink>
+            <NavLink to="/calendar">
+              <Button variant="primary" style={buttonStyle}>
+                todo
+              </Button>
+            </NavLink>
             <div><Button onClick={this.logout} variant="secondary" style={buttonStyle}>
               logout
             </Button></div>

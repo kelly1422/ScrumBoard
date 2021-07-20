@@ -9,6 +9,9 @@ import { Route } from "react-router-dom";
 import $ from "jquery";
 import {} from "jquery.cookie";
 
+import Calendar from "./CalendarApp";
+import NewSchedule from './NewSchedule';
+
 class Body extends Component { //컴포넌트를 상속받아서 index에서 가져다 쓰겠다
   render() {
     let resultForm;
@@ -29,6 +32,9 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
         <Route path="/boardWrite" component={BoardWriteForm}></Route>
         <Route path="/board/detail" component={BoardDetail}></Route>
         <Route path="/board/userDetail" component={UserDetail}></Route>
+        
+        <Route path="/calendar" component={Calendar}></Route>
+        <Route path="/newSchedule" component={NewSchedule}></Route>
         {resultForm}
       </div>
     );

@@ -34,6 +34,7 @@ app.use(express.urlencoded({ extended: true })); //배열과 같은 데이터들
 //routes 폴더에 라우터 파일들을 만들어 놓고 그 경로를 여기다 작성해주면 된다.
 app.use("/member", require("./routes/memberRouter"));
 app.use("/board", require("./routes/boardRouter"));
+app.use("/calendar", require("./routes/calendarRouter"));
 
 app.listen(80, () => {
   console.log("listen umm..umm..um...");

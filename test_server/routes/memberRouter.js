@@ -159,7 +159,6 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
   console.log("/logout" + req.sessionID);
   req.session.destroy(() => {
-    $.removeCookie('_email');
     res.json({ message: true });
   });
 });
