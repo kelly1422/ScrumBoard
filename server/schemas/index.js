@@ -30,5 +30,5 @@ module.exports = () => { //exports로 내보내주므로 다른 곳에서도 쓸
   require("./user"); //같은 폴더 내의 user, board도 불러옴.
   require("./board");
   require("./calendar");
+  require("./comment");
 };
-

@@ -32,6 +32,7 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
         <Route path="/board/detail" component={BoardDetail}></Route>
         <Route path="/calendar" component={Calendar}></Route>
         <Route path="/newSchedule" component={NewSchedule}></Route>
+        
         {resultForm}
       </div>
     );
@@ -40,4 +41,5 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
 
 export default Body; //index에서 import 하려면 export 해줘야함
 
-//클릭하면 그에 맞는 바디페이지로 바비부분만 부분 랜더링 해줌
+//클릭하면 그에 맞는 바디페이지로 바디부분만 부분 랜더링 해줌
+//<Route path="/board/userDetail" component={UserDetail}></Route>

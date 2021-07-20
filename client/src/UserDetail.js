@@ -8,54 +8,55 @@ axios.defaults.withCredentials = true;
 const headers = { withCredentials: true };
 
 class BoardRow extends Component {
-  render() {
-    return (
-      <tr>
-        <td>
-          <NavLink
-            to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
-          >
-            {this.props.createdAt.substring(0, 10)}
-          </NavLink>
-        </td>
-        <td>
-          <NavLink
-            to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
-          >
-            {this.props.title}
-          </NavLink>
-        </td>
-        <td>
-        <NavLink
-            to={{ pathname: "/board/userDetail", query: { author: this.props.author } }}
-          >
-            {this.props.author}
-          </NavLink>
-        </td>
-      </tr>
-    );
-  }
+    render() {
+        return (
+            <tr>
+            <td>
+            <NavLink
+                to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
+            >
+                {this.props.createdAt.substring(0, 10)}
+            </NavLink>
+            </td>
+            <td>
+            <NavLink
+                to={{ pathname: "/board/detail", query: { _id: this.props._id } }}
+            >
+                {this.props.title}
+            </NavLink>
+            </td>
+            </tr>
+        );
+    }
 }
 
-class BoardForm extends Component {
+class UserDetail extends Component {
   state = {
-    boardList: []
+    author:"..",
+    boardList: [],
+    writer: ""
   };
 
-  componentDidMount() {
-    this.getBoardList();
+  componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
+    if (this.props.location.query !== undefined) { //쿼리로 보낸게 없으면 (NavLink 로 이 페이지 주소로 연결할때 주는 쿼리)
+      this.getBoardList(this.props.location.query);
+    } else {
+      window.location.href = "/";
+    }
   }
 
-  getBoardList = () => {
+  getBoardList = (writer) => {
+     console.log(writer);
     const send_param = {
       headers,
-      _id: $.cookie("login_id")
+      author: writer
     };
     axios
-      .post("http://172.10.18.147:80/board/getBoardList", send_param)
+      .post("http://172.10.18.151:80/board/getBoardListUser", send_param)
       .then(returnData => {
         let boardList;
         if (returnData.data.list.length > 0) {
+          console.log(returnData.data);
           // console.log(returnData.data.list.length);
           const boards = returnData.data.list;
           boardList = boards.map(item => (
@@ -68,6 +69,7 @@ class BoardForm extends Component {
           ));
           // console.log(boardList);
           this.setState({
+            author: returnData.data.author.name,
             boardList: boardList
           });
         } else {
@@ -77,6 +79,7 @@ class BoardForm extends Component {
             </tr>
           );
           this.setState({
+            author: returnData.data.author.name,
             boardList: boardList
           });
           // window.location.reload();
@@ -92,8 +95,10 @@ class BoardForm extends Component {
       margin: 50
     };
 
+    
     return (
       <div>
+        <h2>{this.state.author} 이 작성한 글</h2>
         <div style={divStyle}>
           <Table striped bordered hover>
             <thead>
@@ -110,4 +115,4 @@ class BoardForm extends Component {
   }
 }
 
-export default BoardForm;
+export default UserDetail;

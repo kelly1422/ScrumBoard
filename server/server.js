@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: true })); //배열과 같은 데이터들
 app.use("/member", require("./routes/memberRouter"));
 app.use("/board", require("./routes/boardRouter"));
 app.use("/calendar", require("./routes/calendarRouter"));
+app.use("/comment", require("./routes/commentRouter"));
 
 app.listen(80, () => {
   console.log("listening to port 80");
