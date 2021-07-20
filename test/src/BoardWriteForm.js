@@ -43,7 +43,7 @@ class BoardWriteForm extends Component {
     }
     
     if (this.props.location.query !== undefined) { //수정하기 버튼을 통해 들어오면 query를 통해 그 글의  _id 값을 보내줌, 그 값이 있으면 
-      url = "http://172.10.18.151:80/board/update";
+      url = "http://192.249.18.151:80/board/update";
       send_param = {
         headers,
         "_id" : this.props.location.query._id,
@@ -51,7 +51,7 @@ class BoardWriteForm extends Component {
         "content": boardContent
       };
     } else {
-      url = "http://172.10.18.151:80/board/write"; //새로 작성
+      url = "http://192.249.18.151:80/board/write"; //새로 작성
       send_param = {
         headers,
         "_id" : $.cookie("login_id"),  //로그인에 성공해서 생성한 login_id 쿠키값으로 방금 새로 작성한 글의 _id 값을 정해줌

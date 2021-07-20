@@ -60,7 +60,7 @@ class LoginForm extends Component {
       password: this.joinPw.value
     };
     axios
-      .post("http://172.10.18.151:80/member/join", send_param)
+      .post("http://192.249.18.151:80/member/join", send_param)
       //정상 수행
       .then(returnData => { //돌아온 데이터 체크
         if (returnData.data.message) {
@@ -103,7 +103,7 @@ class LoginForm extends Component {
       password: this.loginPw.value //키값 : 벨류값
     };
     axios //비동기 통신
-      .post("http://172.10.18.151:80/member/login", send_param) //서버에 저 url 주소 보내주기
+      .post("http://192.249.18.151:80/member/login", send_param) //서버에 저 url 주소 보내주기
       //정상 수행
       .then(returnData => {
         if (returnData.data.message) {

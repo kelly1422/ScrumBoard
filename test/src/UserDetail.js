@@ -32,28 +32,27 @@ class BoardRow extends Component {
 
 class UserDetail extends Component {
   state = {
-    author:"..",
     boardList: [],
-    writer: ""
+    
+    author: ""
   };
 
   componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
     if (this.props.location.query !== undefined) { //쿼리로 보낸게 없으면 (NavLink 로 이 페이지 주소로 연결할때 주는 쿼리)
-      this.setState({writer: this.props.location.query});
-      this.getBoardList(this.props.location.query);
+      this.getBoardList(this.props.location.query.author);
     } else {
       window.location.href = "/";
     }
   }
 
-  getBoardList = (writer) => {
-     console.log(writer);
+  getBoardList = writer => {
+    //  console.log(writer);
     const send_param = {
       headers,
-      _id: writer
+      author: writer
     };
     axios
-      .post("http://172.10.18.151:80/board/getBoardListUser", send_param)
+      .post("http://192.249.18.151:80/board/getBoardListUser", send_param)
       .then(returnData => {
         let boardList;
         if (returnData.data.list.length > 0) {
@@ -70,8 +69,8 @@ class UserDetail extends Component {
           ));
           // console.log(boardList);
           this.setState({
-            author: returnData.data.author.name,
-            boardList: boardList
+            boardList: boardList,
+            author:writer
           });
         } else {
           boardList = (
@@ -80,7 +79,7 @@ class UserDetail extends Component {
             </tr>
           );
           this.setState({
-            author: returnData.data.author.name,
+            author:writer,
             boardList: boardList
           });
           // window.location.reload();
@@ -93,13 +92,16 @@ class UserDetail extends Component {
 
   render() {
     const divStyle = {
-      margin: 50
+      margin: 100
+    };
+    const titleStyle = {
+      
     };
 
     
     return (
       <div>
-        <h2>{this.state.author} + "이 작성한 글"</h2>
+        <h2><strong>{this.state.author} 's Board</strong></h2>
         <div style={divStyle}>
           <Table striped bordered hover>
             <thead>
