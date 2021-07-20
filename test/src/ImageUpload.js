@@ -1,7 +1,9 @@
 import React, { Component,useEffect } from 'react'
 import axios from 'axios';
+import Gallery from "react-photo-gallery";
 import styles from "./photo.css"
 import {Row,Col, Form, Button} from "react-bootstrap";
+import $ from "jquery";
 import {} from "jquery.cookie";
 //import photos from "./photo"
 
@@ -78,7 +80,7 @@ componentWillMount() {
     return (
         <div>
       <div style={divStyle}>
-        put image
+        여기에 넣고 싶은 사진을 넣어주세요!
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label visuallyHidden></Form.Label>
           <Form.Control type="file" onChange={e => this.handleFileInput(e) }/>

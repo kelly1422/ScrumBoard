@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true })); //배열과 같은 데이터들
 app.use("/member", require("./routes/memberRouter"));
 app.use("/board", require("./routes/boardRouter"));
 app.use("/calendar", require("./routes/calendarRouter"));
-app.use("/image",require("./routes/uploadRouter"))
+app.use("/image",require("./routes/uploadRouter"));
 
 app.listen(80, () => {
   console.log("listen umm..umm..um...");
