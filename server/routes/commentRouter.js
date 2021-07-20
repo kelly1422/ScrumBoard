@@ -41,11 +41,13 @@ router.post("/write", async (req, res) => {
 
     obj = {
       writer: req.body._id,
-      content: req.body.content
+      content: req.body.content,
+      tableId: req.body.tableId
     };
 
     const comment = new Comment(obj);
     await comment.save();
+    console.log(obj);
     res.json({ message: "댓글이 업로드 되었습니다." });
   } catch (err) {
     console.log(err);

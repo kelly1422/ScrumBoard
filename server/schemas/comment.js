@@ -4,11 +4,10 @@ const { Schema } = mongoose;
 const {Types: { ObjectId } } = Schema;
 const commentSchema = new Schema({
     tableId: {
-        type:String
+        type: ObjectId
     },
     writer: {
-        type: ObjectId,
-        required: true, //필수적으로 들어와야 하는 값인지 확인
+        type: ObjectId, 
         ref: "User" //writer라는 필드 이름을 User에서 참조해서 사용
     },
     content: {
