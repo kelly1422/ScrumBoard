@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Button, Image } from "react-bootstrap";
+import { Navbar, Button, Image, Nav, Container} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
@@ -26,7 +26,7 @@ class Header extends Component {
 
   logout = () => {
     axios
-      .get("http://172.10.18.151:80/member/logout", {
+      .get("http://192.249.18.151:80/member/logout", {
         headers
       })
       .then(returnData => {
@@ -39,37 +39,41 @@ class Header extends Component {
   };
   render() {
     const buttonStyle = {
-      margin: "0px 5px 0px 10px",
-      display: this.state.buttonDisplay
+      margin: "15px 10px 15px 10px",
     };
 
     return (
       <div>
-        <Navbar>
-          <Navbar.Brand href="/">Today I Learned</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            {/* <NavLink to="/mypage">
-              <Button style={buttonStyle} variant="primary">
-                회원정보 수정
+        <Navbar Navbar bg="light" expand="lg">
+          <Container>
+          <Navbar.Brand href="/"><strong><big>SCRUM for Mad Camp</big></strong></Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+          <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <NavLink to="/mypage">
+              <Button variant="primary" style={buttonStyle}>
+                edit
               </Button>
-            </NavLink> */}
+            </NavLink>
             <NavLink to="/">
-              <Button style={buttonStyle} variant="primary">
-                글목록
+              <Button variant="primary" style={buttonStyle}>
+                list
               </Button>
             </NavLink>
             <NavLink to="/boardWrite">
-              <Button style={buttonStyle} variant="primary">
-                글쓰기
+              <Button variant="primary" style={buttonStyle}>
+                write
               </Button>
             </NavLink>
-            <Button style={buttonStyle} onClick={this.logout} variant="primary">
-              로그아웃
-            </Button>
+            <div><Button onClick={this.logout} variant="secondary" style={buttonStyle}>
+              logout
+            </Button></div>
+            
+            </Nav>
           </Navbar.Collapse>
+          </Container>
         </Navbar>
-        <Image src="./img/main.png" fluid />
+        <Image src="./img/check.jpg" fluid />
       </div>
     );
   }

@@ -17,7 +17,7 @@ app.use(
     saveUninitialized: true,
     secret: "hamletshu",
     cookie: {
-      httpOnly: true,
+      // httpOnly: true,
       secure: false
     }
   })

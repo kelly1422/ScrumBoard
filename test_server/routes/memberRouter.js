@@ -3,6 +3,14 @@ const router = express.Router();
 const User = require("../schemas/user");
 const crypto = require("crypto"); //암호화에
 
+router.get("/getall",async(req,res)=>{
+  try{
+    const result=User.find({});
+    res.send(result);
+  }catch(error){
+    console.log(error);
+  }
+});
 //회원가입
 router.post("/join", async (req, res) => {
   try {
@@ -88,7 +96,7 @@ router.post("/login", async (req, res) => {
                 console.log(user2);
                 if (user2) {
                   // 있으면 로그인 처리
-                  // console.log(req.body._id);
+                  //console.log(req.body._id);
                   await User.updateOne(
                     {
                       email: req.body.email
@@ -99,7 +107,8 @@ router.post("/login", async (req, res) => {
                   res.json({
                     message: "로그인 되었습니다!",
                     _id: user2._id,
-                    email: user2.email
+                    email: user2.email,
+                    name: user2.name
                   });
                 } else {
                   //없으면 로그인 실패횟수 추가

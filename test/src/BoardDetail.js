@@ -7,11 +7,12 @@ const headers = { withCredentials: true };
 
 class BoardDetail extends Component {
   state = {
+    subject:"",
     board: []
   };
 
-  componentDidMount() {
-    if (this.props.location.query !== undefined) {
+  componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
+    if (this.props.location.query !== undefined) { //쿼리로 보낸게 없으면 (NavLink 로 이 페이지 주소로 연결할때 주는)
       this.getDetail();
     } else {
       window.location.href = "/";
@@ -25,7 +26,7 @@ class BoardDetail extends Component {
     };
     if (window.confirm("정말 삭제하시겠습니까?")) {
       axios
-        .post("http://172.10.18.151:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
+        .post("http://192.249.18.151:80/board/delete", send_param) //보드라우터 가서 딜리트 실행
         //정상 수행
         .then(returnData => {
           alert("게시글이 삭제 되었습니다.");
@@ -48,7 +49,7 @@ class BoardDetail extends Component {
       marginBottom: 5
     };
     axios
-      .post("http://172.10.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
+      .post("http://192.249.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
       //정상 수행
       .then(returnData => { //받아온 보드 데이터들 
         if (returnData.data.board[0]) { //받아온 보드 데이터는 한개이므로 걍 0번째 인덱스로 하면됨
@@ -81,12 +82,13 @@ class BoardDetail extends Component {
                     }
                   }}
                 >
-                  <Button block style={marginBottom}>
+                  <Button block className="my-3">
                     글 수정
                   </Button>
                 </NavLink>
                 <Button
                   block
+                  className="my-3"
                   onClick={this.deleteBoard.bind(
                     null,
                     this.props.location.query._id
@@ -98,6 +100,7 @@ class BoardDetail extends Component {
             </div>
           );
           this.setState({
+            subject: returnData.data.board[0].title,
             board: board //맨위에서 선언한 board : 방금 받아온 board 데이터
           });
         } else {
@@ -113,9 +116,17 @@ class BoardDetail extends Component {
   //onClick={this.getBoard.bind(null,this.props._id)}
   render() {
     const divStyle = {
-      margin: 50
+      marginTop: 30,
+      marginLeft:200,
+      marginRight:200,
+      marginBottom:50
     };
-    return <div style={divStyle}>{this.state.board}</div>; //this.state.board 에 테이블이 들어감
+    return (
+      <div>
+      <h2><strong>Subject : {this.state.subject}</strong></h2>
+      <div style={divStyle}>{this.state.board}</div>
+      </div>
+    ); //this.state.board 에 테이블이 들어감
   }
 }
 

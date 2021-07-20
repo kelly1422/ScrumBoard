@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Board = require("../schemas/board");
+const User = require("../schemas/user");
+
+
 
 router.post("/delete", async (req, res) => {
   try {
@@ -39,7 +42,8 @@ router.post("/write", async (req, res) => {
     obj = {
       writer: req.body._id,
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      author: req.body.author
     };
 
     const board = new Board(obj);
@@ -51,15 +55,39 @@ router.post("/write", async (req, res) => {
   }
 });
 
-router.post("/getBoardList", async (req, res) => {
+router.post("/getBoardListUser", async (req, res) => { //그 유저가 쓴 글만 보내기
   try {
-    const _id = req.body._id;
-    const board = await Board.find({ writer: _id }, null, {
+    const author = await User.findOne({ 'name': req.body.author});
+    const _id = author._id;
+    console.log(_id);
+
+
+    const board = await Board.find({ 'writer': _id }, null, {
       sort: { createdAt: -1 }
     });
-    res.json({ list: board });
+    console.log("author :");
+    console.log(author);
+  
+    console.log("board:");
+    console.log(board);
+    res.json({ 
+      list: board
+    });
   } catch (err) {
     console.log(err);
+    res.json({ message: false });
+  }
+});
+
+router.post("/getBoardList", async (req, res) => {
+  try {
+    const board = await Board.find(null, null, {
+      sort: { createdAt: -1 }
+    });
+    console.log(board);
+    res.json({ list: board });
+  } catch (err) {
+    console.log("error " + err);
     res.json({ message: false });
   }
 });
@@ -69,6 +97,19 @@ router.post("/detail", async (req, res) => {
     const _id = req.body._id;
     const board = await Board.find({ _id });
     res.json({ board });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
+router.post("/userdetail", async(req, res) => {
+  try{
+    const _id = req.body._id;
+    const board = await Board.find({ writer: _id }, null, {
+      sort: { createdAt: -1 }
+    });
+    res.json({ list: board });
   } catch (err) {
     console.log(err);
     res.json({ message: false });

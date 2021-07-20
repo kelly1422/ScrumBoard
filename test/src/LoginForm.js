@@ -60,7 +60,7 @@ class LoginForm extends Component {
       password: this.joinPw.value
     };
     axios
-      .post("http://172.10.18.151:80/member/join", send_param)
+      .post("http://192.249.18.151:80/member/join", send_param)
       //정상 수행
       .then(returnData => { //돌아온 데이터 체크
         if (returnData.data.message) {
@@ -103,12 +103,13 @@ class LoginForm extends Component {
       password: this.loginPw.value //키값 : 벨류값
     };
     axios //비동기 통신
-      .post("http://172.10.18.151:80/member/login", send_param) //서버에 저 url 주소 보내주기
+      .post("http://192.249.18.151:80/member/login", send_param) //서버에 저 url 주소 보내주기
       //정상 수행
       .then(returnData => {
         if (returnData.data.message) {
           // console.log("login_id:" + returnData.data._id);
           $.cookie("login_id", returnData.data._id, { expires: 1 });
+          $.cookie("login_name", returnData.data.name, { expires: 1 });
           $.cookie("login_email", returnData.data.email, { expires: 1 }); //로그인 되면 쿠키값을 설정해줌 -> 쿠키값 여부로 로그인 여부 확인
           alert(returnData.data.message);
           window.location.reload(); //로그인 된 상태의 화면으로 새로고침
@@ -123,14 +124,34 @@ class LoginForm extends Component {
   };
   render() {
     const formStyle = {
-      margin: 50
+      marginTop: 20
     };
     const buttonStyle = {
-      marginTop: 10
+      marginTop: 50,
+      marginBottom: 30
+    };
+    const divStyle1 ={
+      float: "left",
+      marginTop : 25,
+      width : 330,
+      marginLeft : 300,
+      marginRight : 120,
+      marginBottom : 40
+      
+    };
+    const divStyle2 ={
+      float: "left",
+      width : 330,
+      marginTop : 70,
+      marginLeft : 120,
+      marginRight : 250,
+      marginBottom : 40
+      
     };
 
     return (
       <Form style={formStyle}>
+        <div style={divStyle1}>
         <Form.Group controlId="joinForm">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -166,7 +187,9 @@ class LoginForm extends Component {
             회원가입
           </Button>
         </Form.Group>
+        </div>
 
+        <div style={divStyle2}>
         <Form.Group controlId="loginForm">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -197,6 +220,7 @@ class LoginForm extends Component {
             로그인
           </Button>
         </Form.Group>
+        </div>
       </Form>
     );
   }
