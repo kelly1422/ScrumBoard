@@ -32,9 +32,8 @@ class BoardRow extends Component {
 
 class UserDetail extends Component {
   state = {
-    author:"..",
     boardList: [],
-    writer: ""
+    author: ""
   };
 
   componentDidMount() { //생성자 같은 함수, 이 페이지에 (/board/detail) 에 들어오면 바로 실행되는 느낌
