@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import Comment from "./Comment";
 axios.defaults.withCredentials = true;
 const headers = { withCredentials: true };
 
@@ -40,13 +41,47 @@ class BoardDetail extends Component {
     }
   };
 
+  getComment =() =>{
+
+    const tableId = this.props.tableId;
+    const send_param ={
+    headers,
+    _id: this.props.location.query._id,
+    tableId: tableId
+    }
+    axios.post("http://172.10.18.147:80/comment/getCommentList", send_param)
+    .then(returnData=>{
+    if(returnData.data.success){
+    const comment=(
+    <div>
+    <Table striped bordered hover>
+    <thead>
+    <tr>
+    <th>{returnData.data.comment[0].title}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td
+    dangerouslySetInnerHTML={{
+    __html: returnData.data.comment[0].content
+    }}
+    ></td>
+    </tr>
+    </tbody>
+    </Table>
+    </div>
+    )
+    }else{
+    alert('코멘트 정보를 가져오는 것을 실패하였습니다.')
+    }
+    })
+    }
+
   getDetail = () => {
     const send_param = {
       headers,
       _id: this.props.location.query._id
-    };
-    const marginBottom = {
-      marginBottom: 5
     };
     axios
       .post("http://192.249.18.151:80/board/detail", send_param) //보드 라우터의 디테일 실행 (파람을 보내기)
@@ -71,6 +106,9 @@ class BoardDetail extends Component {
                   </tr>
                 </tbody>
               </Table>
+
+              <Comment/>
+
               <div>
                 <NavLink
                   to={{

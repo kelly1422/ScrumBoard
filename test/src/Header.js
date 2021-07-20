@@ -65,6 +65,11 @@ class Header extends Component {
                 write
               </Button>
             </NavLink>
+            <NavLink to="/imageupload">
+              <Button style={buttonStyle} variant="primary">
+                image
+              </Button>
+            </NavLink>
             <NavLink to="/calendar">
               <Button variant="primary" style={buttonStyle}>
                 todo

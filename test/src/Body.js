@@ -12,6 +12,9 @@ import {} from "jquery.cookie";
 import Calendar from "./CalendarApp";
 import NewSchedule from './NewSchedule';
 
+import axios from 'axios';
+import ImageUpload from "./ImageUpload";
+
 class Body extends Component { //컴포넌트를 상속받아서 index에서 가져다 쓰겠다
   render() {
     let resultForm;
@@ -25,7 +28,22 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
         return resultForm;
       }
     }
+    function getphotolist() {
+      let photos = [];
+        axios.get("http://192.249.18.153:80/image/").then(res => {
+          console.log(res);
+          let url = res.config.url.replace("/image","")
+          for(var i in res.data.image) {
+              photos.push({src:url+res.data.image[i],
+              width: 400,
+              height: 300
+              });
+          }
+        })
+        return photos;
+      }
     getResultForm();
+    getphotolist();
     return (
       <div>
         <Route path="/mypage" component={MypageForm}></Route>
@@ -35,6 +53,8 @@ class Body extends Component { //컴포넌트를 상속받아서 index에서 가
         
         <Route path="/calendar" component={Calendar}></Route>
         <Route path="/newSchedule" component={NewSchedule}></Route>
+
+        <Route path="/imageupload" component={ImageUpload}></Route>
         {resultForm}
       </div>
     );

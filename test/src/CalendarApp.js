@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
-import {Button} from 'react-bootstrap';
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { NavLink } from "react-router-dom";
 import "./App.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from 'axios';
-import NewSchedule from "./NewSchedule";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
