@@ -12,8 +12,8 @@ import {} from "jquery.cookie";
 import Calendar from "./CalendarApp";
 import NewSchedule from './NewSchedule';
 
-import axios from 'axios';
 import ImageUpload from "./ImageUpload";
+import axios from 'axios';
 
 class Body extends Component { //컴포넌트를 상속받아서 index에서 가져다 쓰겠다
   render() {
