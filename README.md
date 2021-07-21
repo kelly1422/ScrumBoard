@@ -66,7 +66,7 @@
 
 ## Album 
 
-<img src="" width="400" height="200">
+<img src="https://user-images.githubusercontent.com/86708408/126424448-fb21aec3-7893-4c69-bca2-413e582b83ae.png" width="400" height="200">
 
 - 로컬에 있는 사진을 불러와 저장할 수 있음
 - 화면에 그리드 뷰 형태로 사진들이 나타남
