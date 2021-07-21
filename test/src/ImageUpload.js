@@ -10,11 +10,16 @@ import {} from "jquery.cookie";
 const headers = { withCredentials: true };
 
 var photos = [{
-  src:"https://source.unsplash.com/2ShvY8Lf6l0/500x375 500w",
-   
-  
+  src:"https://source.unsplash.com/2ShvY8Lf6l0/500x375 500w"},
 
-}];
+  {src: "http://192.249.18.153:80/static/1626801860301_3.jpg"},
+   {src: "http://192.249.18.153:80/static/1626801869718_bird1.png"},
+  {src: "http://192.249.18.153:80/static/1626801884405_bird3.png"},
+  {src: "http://192.249.18.153:80/static/1626803724165_background.png"},
+  {src: "http://192.249.18.153:80/static/1626801860301_3.jpg"},
+   {src: "http://192.249.18.153:80/static/1626801869718_bird1.png"},
+   {src: "http://192.249.18.153:80/static/1626801884405_bird3.png"},
+   {src: "http://192.249.18.153:80/static/1626803724165_background.png"}];
 
 /* popout the browser and maximize to see more rows! -> */
 
@@ -24,29 +29,20 @@ class ImageUpload extends Component {
     this.state = {
       selectedFile: null,
     }
-    
-  }
-
-  
-
-componentWillMount() {
-
-  /* popout the browser and maximize to see more rows! -> */
-  
-  axios.get("http://192.249.18.153:80/image/").then(res => {
-      console.log(res);
+    axios.get("http://192.249.18.153:80/image/").then(res => {
+      console.log("answer:"+res);
       let url = res.config.url.replace("/image","")
       for(var i in res.data.image) {
-          photos.push({name:"haha"+i,
+          photos.push({
           src:url+res.data.image[i],
-          desc: ""+i,
+          
         });
       }
         
       console.log(photos);
       })
   }
-
+  
 
 
   handleFileInput(e){
@@ -93,6 +89,7 @@ componentWillMount() {
                 <Col>
                     <div className="row no-gutters">
                     {photos.map((val, k) => {
+                      console.log(val);
                         return (
                         <div className="col-sm-4" key={k}>
                             <img src={val.src}  className="photo" />
